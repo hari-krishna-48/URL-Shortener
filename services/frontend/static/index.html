@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>URL Shortener</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="script.js" defer></script>
+  </head>
+
+  <body>
+    <h1>URL Shortener</h1>
+    <section>
+      <form class="shorten">
+        <div>
+          <label>URL <input type="url" name="url" /></label>
+        </div>
+        <button type="submit">Shorten</button>
+        <div class="result-container" hidden>
+          Short URL: <a class="result" href="#"></a>
+        </div>
+        <div class="result-container-error" hidden></div>
+        <div class="result-container-instance"></div>
+      </form>
+    </section>
+
+    <section>
+      <h2>Edit URL</h2>
+      <div>
+        <form class="edit">
+          <div>
+            <label>
+              <span class="origin"></span>
+              <input name="id" placeholder="URL ID" />
+            </label>
+          </div>
+          <div>
+            <label>New URL <input type="url" name="new-url" /></label>
+          </div>
+          <button type="submit">Update URL</button>
+          <div class="result-container" hidden>
+            Success: <a class="result" href="#"></a>
+          </div>
+          <div class="result-container-error" hidden></div>
+          <div class="result-container-instance"></div>
+        </form>
+      </div>
+    </section>
+
+    <section>
+      <h2>Delete URL</h2>
+      <div>
+        <form class="delete">
+          <div>
+            <label>
+              <span class="origin"></span>
+              <input name="del-id" placeholder="URL ID" />
+            </label>
+          </div>
+          <button type="submit">Delete URL</button>
+          <button class="delete-all">Delete all URLs</button>
+          <div class="result-container" hidden>Success</div>
+          <div class="result-container-error" hidden></div>
+          <div class="result-container-instance"></div>
+        </form>
+      </div>
+    </section>
+
+    <section>
+      <h2>List URLs</h2>
+      <button class="load-urls">Load URLs</button>
+      <div class="result-container-instance"></div>
+      <div class="list-container">
+        <ul class="urls"></ul>
+      </div>
+    </section>
+
+    <section>
+      <h2 id="login">Login</h2>
+      <form class="login">
+        <div>
+          <label> Username <input name="username" /> </label>
+        </div>
+        <div>
+          <label> Password <input name="password" type="password" /> </label>
+        </div>
+        <button type="submit">Login</button>
+        <button class="register">Register</button>
+        <div class="result-container" hidden>Success</div>
+        <div class="result-container-error" hidden></div>
+        <div class="result-container-instance"></div>
+      </form>
+
+      <h3>Token</h3>
+      <form class="token">
+        <div>
+          <label> Token <input name="token" /> </label>
+        </div>
+        <button type="submit">Verify</button>
+        <div class="result-container" hidden>Success</div>
+        <div class="result-container-error" hidden></div>
+        <div class="result-container-instance"></div>
+      </form>
+    </section>
+
+    <section>
+      <h2>Update password</h2>
+      <form class="update-password">
+        <div>
+          <label> Username <input name="username-update-pw" /> </label>
+        </div>
+        <div>
+          <label>
+            Old password <input name="old-password" type="password" />
+          </label>
+        </div>
+        <div>
+          <label>
+            New password <input name="new-password" type="password" />
+          </label>
+        </div>
+        <button type="submit">Update password</button>
+        <div class="result-container" hidden>
+          Successfully updated the password
+        </div>
+        <div class="result-container-error" hidden></div>
+        <div class="result-container-instance"></div>
+      </form>
+    </section>
+  </body>
+</html>

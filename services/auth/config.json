@@ -1,0 +1,15 @@
+{
+  "jwt": {
+    "secret": "change-me",
+    "ttl_seconds": 3600
+  },
+  "mongodb": {
+    "port": 27017,
+    "host": "localhost",
+    "database": "auth",
+    "collections": {
+      "users": "users"
+    }
+  },
+  "bonus": false
+}

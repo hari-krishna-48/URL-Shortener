@@ -1,0 +1,12 @@
+{
+  "mongodb": {
+    "port": 27017,
+    "host": "localhost",
+    "database": "url_shortener",
+    "collections": {
+      "mappings": "mappings",
+      "counters": "counters"
+    }
+  },
+  "bonus": false
+}

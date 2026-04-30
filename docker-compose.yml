@@ -1,0 +1,173 @@
+services:
+  # MongoDB Database - Shared storage for all service instances
+  mongodb:
+    image: mongo:7
+    ports:
+      - "27018:27017" # External port 27018, internal port 27017 (to avoid conflict with local MongoDB)
+    volumes:
+      - mongodb-data:/data/db
+    restart: unless-stopped
+
+  # API Gateway - Single entry point on port 80
+  envoy:
+    build:
+      context: ./envoy
+      dockerfile: Dockerfile
+    ports:
+      - "80:80"
+    depends_on:
+      - auth-service-1
+      - auth-service-2
+      - auth-service-3
+      - url-shortener-1
+      - url-shortener-2
+      - url-shortener-3
+      - url-shortener-4
+      - frontend-1
+      - frontend-2
+    restart: unless-stopped
+
+  # Authentication Service - Instance 1
+  auth-service-1:
+    build:
+      context: ./services/auth
+      dockerfile: Dockerfile
+    environment:
+      - FLASK_RUN_PORT=8001
+      - MONGODB_HOST=mongodb
+      - MONGODB_PORT=27017
+      - BONUS=true
+      - INSTANCE_ID=auth-service-1
+      - DOCKER_ENV=true
+    depends_on:
+      - mongodb
+    restart: unless-stopped
+
+  # Authentication Service - Instance 2
+  auth-service-2:
+    build:
+      context: ./services/auth
+      dockerfile: Dockerfile
+    environment:
+      - FLASK_RUN_PORT=8001
+      - MONGODB_HOST=mongodb
+      - MONGODB_PORT=27017
+      - BONUS=true
+      - INSTANCE_ID=auth-service-2
+      - DOCKER_ENV=true
+    depends_on:
+      - mongodb
+    restart: unless-stopped
+
+  # Authentication Service - Instance 3
+  auth-service-3:
+    build:
+      context: ./services/auth
+      dockerfile: Dockerfile
+    environment:
+      - FLASK_RUN_PORT=8001
+      - MONGODB_HOST=mongodb
+      - MONGODB_PORT=27017
+      - BONUS=true
+      - INSTANCE_ID=auth-service-3
+      - DOCKER_ENV=true
+    depends_on:
+      - mongodb
+    restart: unless-stopped
+
+  # URL Shortener Service - Instance 1
+  url-shortener-1:
+    build:
+      context: ./services/url-shortener
+      dockerfile: Dockerfile
+    environment:
+      - FLASK_RUN_PORT=8000
+      - AUTH_SERVICE_URL=http://envoy/auth
+      - MONGODB_HOST=mongodb
+      - MONGODB_PORT=27017
+      - BONUS=true
+      - INSTANCE_ID=url-shortener-1
+      - DOCKER_ENV=true
+    depends_on:
+      - mongodb
+    restart: unless-stopped
+
+  # URL Shortener Service - Instance 2
+  url-shortener-2:
+    build:
+      context: ./services/url-shortener
+      dockerfile: Dockerfile
+    environment:
+      - FLASK_RUN_PORT=8000
+      - AUTH_SERVICE_URL=http://envoy/auth
+      - MONGODB_HOST=mongodb
+      - MONGODB_PORT=27017
+      - BONUS=true
+      - INSTANCE_ID=url-shortener-2
+      - DOCKER_ENV=true
+    depends_on:
+      - mongodb
+    restart: unless-stopped
+
+  # URL Shortener Service - Instance 3
+  url-shortener-3:
+    build:
+      context: ./services/url-shortener
+      dockerfile: Dockerfile
+    environment:
+      - FLASK_RUN_PORT=8000
+      - AUTH_SERVICE_URL=http://envoy/auth
+      - MONGODB_HOST=mongodb
+      - MONGODB_PORT=27017
+      - BONUS=true
+      - INSTANCE_ID=url-shortener-3
+      - DOCKER_ENV=true
+    depends_on:
+      - mongodb
+    restart: unless-stopped
+
+  # URL Shortener Service - Instance 4
+  url-shortener-4:
+    build:
+      context: ./services/url-shortener
+      dockerfile: Dockerfile
+    environment:
+      - FLASK_RUN_PORT=8000
+      - AUTH_SERVICE_URL=http://envoy/auth
+      - MONGODB_HOST=mongodb
+      - MONGODB_PORT=27017
+      - BONUS=true
+      - INSTANCE_ID=url-shortener-4
+      - DOCKER_ENV=true
+    depends_on:
+      - mongodb
+    restart: unless-stopped
+
+  # Frontend - Instance 1
+  frontend-1:
+    build:
+      context: ./services/frontend
+      dockerfile: Dockerfile
+    environment:
+      - FLASK_RUN_PORT=8002
+      - AUTH_SERVICE_URL=http://envoy/auth
+      - BONUS=true
+      - INSTANCE_ID=frontend-1
+      - DOCKER_ENV=true
+    restart: unless-stopped
+
+  # Frontend - Instance 2
+  frontend-2:
+    build:
+      context: ./services/frontend
+      dockerfile: Dockerfile
+    environment:
+      - FLASK_RUN_PORT=8002
+      - AUTH_SERVICE_URL=http://envoy/auth
+      - BONUS=true
+      - INSTANCE_ID=frontend-2
+      - DOCKER_ENV=true
+    restart: unless-stopped
+
+volumes:
+  mongodb-data:

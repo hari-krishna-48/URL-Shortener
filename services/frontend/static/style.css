@@ -1,0 +1,30 @@
+body {
+  font-family: sans-serif;
+  text-align: center;
+}
+div {
+  margin: 1em;
+}
+h2 {
+  margin-top: 2em;
+}
+.list-container {
+  display: flex;
+  justify-content: center;
+}
+ul {
+  padding: 0;
+  margin: 0;
+  display: flex;
+  max-width: 800px;
+  gap: 0.5em 2em;
+  flex-wrap: wrap;
+  place-content: center;
+}
+li {
+  display: inline;
+}
+.result-container-instance {
+  font-style: italic;
+  font-size: 0.85em;
+}
